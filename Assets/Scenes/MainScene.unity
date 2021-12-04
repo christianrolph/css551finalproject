@@ -1335,6 +1335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1129863006}
   - component: {fileID: 1129863007}
+  - component: {fileID: 1129863008}
   m_Layer: 0
   m_Name: TheWorld
   m_TagString: Untagged
@@ -1370,6 +1371,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TheRoot: {fileID: 1195369631}
+--- !u!114 &1129863008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954f73cff7850f43aeb7a7bfc27374b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementVector: {x: 0, y: 0}
+  ShotPowerAngle: 0
+  AimAxisAngle: 0
+  isFiring: 0
+  MaxPulledBackCatapultArm: -125
+  MinPulledBackCatapultArm: 0
 --- !u!1 &1195369629
 GameObject:
   m_ObjectHideFlags: 0
