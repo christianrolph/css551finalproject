@@ -32,11 +32,13 @@ public class CatapultControll : MonoBehaviour
     public void SetShotPowerAngle(float angle)
     {
         this.ShotPowerAngle = angle;
+        //Debug.Log("SHOT POWER = " + ShotPowerAngle);
     }
 
     public void SetAimAxisAngle(float angle)
     {
         this.AimAxisAngle = angle;
+        //Debug.Log("AIM AXIS ANGLE = " + AimAxisAngle);
     }
 
     public bool Fire()
