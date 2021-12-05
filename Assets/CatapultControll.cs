@@ -19,6 +19,8 @@ public class CatapultControll : MonoBehaviour
     public float MaxPulledBackCatapultArm;
     public float MinPulledBackCatapultArm;
     public float FireAnimationAngleDelta;
+    public float MaxAimAxisRotateLeft;
+    public float MaxAimAxisRotateRight;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,9 @@ public class CatapultControll : MonoBehaviour
         this.MaxPulledBackCatapultArm = -125f;
         this.MinPulledBackCatapultArm = 0f;
         this.FireAnimationAngleDelta = 20f;
+
+        this.MaxAimAxisRotateLeft = -180f;
+        this.MaxAimAxisRotateRight = 180f;
     }
 
     // Update is called once per frame

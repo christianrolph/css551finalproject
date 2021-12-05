@@ -613,7 +613,7 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: CSS551FinalProject
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: C:\Projects\CSS551FinalProject\Assets\WSATestCertificate.pfx
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
