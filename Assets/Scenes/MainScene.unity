@@ -1727,6 +1727,8 @@ MonoBehaviour:
   ShotPowerAngle: 0
   AimAxisAngle: 0
   isFiring: 0
+  ElapsedTime: 0
+  TotalTime: 0
   mockController: {fileID: 305920937}
   ArmNode: {fileID: 115267547}
   MaxPulledBackCatapultArm: -125
@@ -2138,7 +2140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1049, y: 41}
+  m_AnchoredPosition: {x: 1233.4, y: 41}
   m_SizeDelta: {x: 150, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1576802665
@@ -2380,7 +2382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: -307}
+  m_AnchoredPosition: {x: 327.2, y: -329.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1723297519
