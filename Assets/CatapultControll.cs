@@ -84,11 +84,13 @@ public class CatapultControll : MonoBehaviour
         this.ArmNode.localRotation *= q;
 
         this.ShotPowerAngle = angle;
+        //Debug.Log("SHOT POWER = " + ShotPowerAngle);
     }
 
     public void SetAimAxisAngle(float angle)
     {
         this.AimAxisAngle = angle;
+        //Debug.Log("AIM AXIS ANGLE = " + AimAxisAngle);
     }
 
     public void Fire()
