@@ -15,17 +15,20 @@ public class CatapultControll : MonoBehaviour
     public MockMainController mockController;
 
     public Transform ArmNode;
+    public Transform AimAxisNode;
+    public Transform BaseNode;
 
     public float MaxPulledBackCatapultArm;
     public float MinPulledBackCatapultArm;
+    public float InitialCatapultArmPosition;
+    
     public float FireAnimationAngleDelta;
+
     public float MaxAimAxisRotateLeft;
     public float MaxAimAxisRotateRight;
+    public float InitialPositionAimAxis;
 
-    public bool TEST_MODE = false;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (!TEST_MODE)
         {
@@ -35,10 +38,16 @@ public class CatapultControll : MonoBehaviour
         this.ShotPowerAngle = 0; // initial rotation should be 0
         this.MaxPulledBackCatapultArm = -125f;
         this.MinPulledBackCatapultArm = 0f;
+        this.InitialCatapultArmPosition = 0f;
         this.FireAnimationAngleDelta = 20f;
 
         this.MaxAimAxisRotateLeft = -180f;
         this.MaxAimAxisRotateRight = 180f;
+        this.InitialPositionAimAxis = 0f;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -102,6 +111,14 @@ public class CatapultControll : MonoBehaviour
 
     public void SetAimAxisAngle(float angle)
     {
+        Vector3 p = Vector3.zero;
+
+        // if not in rotation, next two lines of work would be wasted
+        float dy = angle - this.AimAxisAngle;
+        Quaternion q = Quaternion.AngleAxis(dy, Vector3.up);
+
+        this.AimAxisNode.localRotation *= q;
+
         this.AimAxisAngle = angle;
         //Debug.Log("AIM AXIS ANGLE = " + AimAxisAngle);
     }
