@@ -28,6 +28,8 @@ public class CatapultControll : MonoBehaviour
     public float MaxAimAxisRotateRight;
     public float InitialPositionAimAxis;
 
+    public bool TEST_MODE = false;
+
     private void Awake()
     {
         if (!TEST_MODE)
