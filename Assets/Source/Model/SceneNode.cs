@@ -9,6 +9,7 @@ public class SceneNode : MonoBehaviour {
     protected Vector3 origNodeOrigin;
     protected Transform origTransform;
     bool hasOrigInfoBeenStored = false;
+    public TheWorld World;
 
 
     public Vector3 NodeOrigin = Vector3.zero;
@@ -18,6 +19,8 @@ public class SceneNode : MonoBehaviour {
 	// Use this for initialization
 	protected void Start () {
         InitializeSceneNode();
+        this.World = GameObject.FindObjectOfType<TheWorld>();
+        Debug.Assert(this.World != null);
 	}
 	
 	// Update is called once per frame
