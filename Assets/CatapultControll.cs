@@ -8,7 +8,7 @@ public class CatapultControll : MonoBehaviour
     public Vector2 MovementVector;
     public float ShotPowerAngle;
     public float AimAxisAngle;
-    public bool isFiring;
+    public bool isFiring = false;
     public float ElapsedTime;   // how much time since last frame
     public float TotalTime;     // a time counter
 
@@ -22,11 +22,16 @@ public class CatapultControll : MonoBehaviour
     public float MaxAimAxisRotateLeft;
     public float MaxAimAxisRotateRight;
 
+    public bool TEST_MODE = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Assert(this.ArmNode != null);
-        Debug.Assert(this.mockController != null);
+        if (!TEST_MODE)
+        {
+            Debug.Assert(this.ArmNode != null);
+            Debug.Assert(this.mockController != null);
+        }
         this.ShotPowerAngle = 0; // initial rotation should be 0
         this.MaxPulledBackCatapultArm = -125f;
         this.MinPulledBackCatapultArm = 0f;
@@ -86,7 +91,10 @@ public class CatapultControll : MonoBehaviour
         float dx = angle - this.ShotPowerAngle;
         Quaternion q = Quaternion.AngleAxis(dx, Vector3.right);
 
-        this.ArmNode.localRotation *= q;
+        if (!TEST_MODE)
+        {
+            this.ArmNode.localRotation *= q;
+        }
 
         this.ShotPowerAngle = angle;
         //Debug.Log("SHOT POWER = " + ShotPowerAngle);
@@ -106,7 +114,10 @@ public class CatapultControll : MonoBehaviour
         }
         else
         {
-            this.isFiring = true;
+            if (!TEST_MODE)
+            {
+                this.isFiring = true;
+            }
             //return true;
         }
     }
