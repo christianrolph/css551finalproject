@@ -8,11 +8,25 @@ public class MockMainController : MonoBehaviour
     public SliderWithEcho AimAxisSlider;
     public CatapultControll TheCatapultControl;
 
+    // these objects are for mocking and dev only,
+    // they're not for prod
+    public AxisFrameControl AxisFrame;
+    public TestCube TheTestCube;
+    public bool Debugging;
+
     // Start is called before the first frame update
     void Start()
     {
+        Debugging = false;
         Debug.Assert(this.ShotPowerSlider != null);
         Debug.Assert(this.AimAxisSlider != null);
+        Debug.Assert(this.AxisFrame != null);
+        Debug.Assert(this.TheTestCube != null);
+        if (!Debugging)
+        {
+            this.AxisFrame.gameObject.SetActive(false);
+            this.TheTestCube.gameObject.SetActive(false);
+        }
 
         ShotPowerSlider.InitSliderRange(
             TheCatapultControl.MaxPulledBackCatapultArm,
