@@ -46,6 +46,8 @@ public class CatapultControll : MonoBehaviour
         this.MaxAimAxisRotateLeft = -180f;
         this.MaxAimAxisRotateRight = 180f;
         this.InitialPositionAimAxis = 0f;
+
+        this.MovementVector = Vector2.zero;
     }
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,9 @@ public class CatapultControll : MonoBehaviour
         {
             AnimateShot(FireAnimationAngleDelta);
         }
+
+        // move catapult
+        MoveToNextPosition();
     }
 
     public void AnimateShot(float angleChange)
@@ -139,5 +144,20 @@ public class CatapultControll : MonoBehaviour
             }
             //return true;
         }
+    }
+
+    public void MoveToNextPosition()
+    {
+        // get speed and direction
+        float speed = this.MovementVector.magnitude;
+        Vector3 adjustIntoV3 = new Vector3(this.MovementVector.y, 0, (-1) * this.MovementVector.x);  // z direction originally going backwards before -1
+        Vector3 direction = adjustIntoV3.normalized;
+
+        // calculate next direction
+        Vector3 currentPostion =  this.BaseNode.transform.localPosition;
+        Vector3 nextPosition = currentPostion + (this.ElapsedTime * speed * direction);
+
+        // move to next direction
+        this.BaseNode.transform.position = nextPosition;
     }
 }
