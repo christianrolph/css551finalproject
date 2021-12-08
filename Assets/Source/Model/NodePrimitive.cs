@@ -8,6 +8,7 @@ public class NodePrimitive: MonoBehaviour {
     public bool Rotating = false;
     public float DegreeDirection = 1f;
     public float DegreeChange = 0.05f;
+    public CatapultControll TheCatapultControl;
 
     private Transform OrigTransform;
     private Vector3 OrigPivot;
@@ -16,6 +17,8 @@ public class NodePrimitive: MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DegreeChange = 0.4f;
+        this.TheCatapultControl = GameObject.Find("TheWorld")?.GetComponent<CatapultControll>();
+        Debug.Assert(this.TheCatapultControl != null);
 
         // adjust rotation direction for hanging capsule
         //if (Rotating && string.Equals(this.gameObject.name, "Capsule", System.StringComparison.OrdinalIgnoreCase))
@@ -64,5 +67,8 @@ public class NodePrimitive: MonoBehaviour {
         Matrix4x4 m = parentNodeMatrix * pivot * trs * invPivot;
         GetComponent<Renderer>().material.SetMatrix("MyXformMat", m);
         GetComponent<Renderer>().material.SetColor("MyColor", MyColor);
+
+        // notify catapult control
+        this.TheCatapultControl.HeirarchyProjectileTransform = m;
     }
 }

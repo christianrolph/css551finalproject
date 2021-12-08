@@ -15,6 +15,7 @@ public class SceneNode : MonoBehaviour {
     public Vector3 NodeOrigin = Vector3.zero;
     public List<NodePrimitive> PrimitiveList;
     public AxisFrameControl AxisFrame = null;       // the one axis frame control for this scene node
+    public ProjectileBehavior Projectile = null;    // the projectile
 
 	// Use this for initialization
 	protected void Start () {
@@ -61,6 +62,12 @@ public class SceneNode : MonoBehaviour {
         if (this.AxisFrame != null)
         {
             this.AxisFrame.setAxisFrame(ref mCombinedParentXform);
+        }
+
+        // disseminate to the Projectile
+        if (this.Projectile != null)
+        {
+            this.Projectile.setProjectileLocation(ref mCombinedParentXform);
         }
     }
 }

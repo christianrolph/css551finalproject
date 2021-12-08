@@ -18,6 +18,8 @@ public class CatapultControll : MonoBehaviour
     public Transform AimAxisNode;
     public Transform BaseNode;
 
+    public Matrix4x4 HeirarchyProjectileTransform;
+
     public float MaxPulledBackCatapultArm;
     public float MinPulledBackCatapultArm;
     public float InitialCatapultArmPosition;
@@ -91,6 +93,9 @@ public class CatapultControll : MonoBehaviour
             this.mockController.ShotPowerSlider.SetSliderValue(0);
             
             this.isFiring = false;
+
+            // instantiate the projectile
+            ProjectileBehavior.InstantiateProjectile(ref this.HeirarchyProjectileTransform);
         }
     }
 
