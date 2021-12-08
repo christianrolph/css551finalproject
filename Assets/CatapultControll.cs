@@ -18,7 +18,8 @@ public class CatapultControll : MonoBehaviour
     public Transform AimAxisNode;
     public Transform BaseNode;
 
-    public Matrix4x4 HeirarchyProjectileTransform;
+    public bool CreateNewProjectile;
+
 
     public float MaxPulledBackCatapultArm;
     public float MinPulledBackCatapultArm;
@@ -50,6 +51,8 @@ public class CatapultControll : MonoBehaviour
         this.InitialPositionAimAxis = 0f;
 
         this.MovementVector = Vector2.zero;
+
+        this.CreateNewProjectile = false;   // initially not launching a projectile
     }
     // Start is called before the first frame update
     void Start()
@@ -94,8 +97,8 @@ public class CatapultControll : MonoBehaviour
             
             this.isFiring = false;
 
-            // instantiate the projectile
-            ProjectileBehavior.InstantiateProjectile(ref this.HeirarchyProjectileTransform);
+            // instantiate a new projectile
+            this.CreateNewProjectile = true;
         }
     }
 

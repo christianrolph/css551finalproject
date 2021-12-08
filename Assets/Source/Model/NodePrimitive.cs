@@ -67,8 +67,5 @@ public class NodePrimitive: MonoBehaviour {
         Matrix4x4 m = parentNodeMatrix * pivot * trs * invPivot;
         GetComponent<Renderer>().material.SetMatrix("MyXformMat", m);
         GetComponent<Renderer>().material.SetColor("MyColor", MyColor);
-
-        // notify catapult control
-        this.TheCatapultControl.HeirarchyProjectileTransform = m;
     }
 }

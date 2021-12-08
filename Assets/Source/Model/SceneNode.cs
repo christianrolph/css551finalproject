@@ -15,13 +15,18 @@ public class SceneNode : MonoBehaviour {
     public Vector3 NodeOrigin = Vector3.zero;
     public List<NodePrimitive> PrimitiveList;
     public AxisFrameControl AxisFrame = null;       // the one axis frame control for this scene node
+    public CatapultControll TheCatapultControl = null;
     public ProjectileBehavior Projectile = null;    // the projectile
 
 	// Use this for initialization
 	protected void Start () {
         InitializeSceneNode();
+
         this.World = GameObject.FindObjectOfType<TheWorld>();
+        this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
+
         Debug.Assert(this.World != null);
+        Debug.Assert(this.TheCatapultControl != null);
 	}
 	
 	// Update is called once per frame
@@ -64,10 +69,20 @@ public class SceneNode : MonoBehaviour {
             this.AxisFrame.setAxisFrame(ref mCombinedParentXform);
         }
 
-        // disseminate to the Projectile
+        // disseminate to the Scene Hierarchy Projectile
         if (this.Projectile != null)
         {
             this.Projectile.setProjectileLocation(ref mCombinedParentXform);
+        }
+
+        // determine creating a new projectile
+        // only ArmNode does this, and it performs it one time
+        if (
+            string.Equals(this.gameObject.name, "ArmNode", System.StringComparison.OrdinalIgnoreCase) &&
+            this.TheCatapultControl.CreateNewProjectile == true)
+        {
+            ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform);
+            this.TheCatapultControl.CreateNewProjectile = false;
         }
     }
 }
