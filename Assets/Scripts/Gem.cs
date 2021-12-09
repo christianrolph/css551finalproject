@@ -11,7 +11,7 @@ public class Gem : MonoBehaviour
     Vector3[] verticies;
     Triangle[] triangleList;
     Vector3[] normals;
-    public Vector2[] uv;
+    Vector2[] uv;
     int[] triangles = new int[NUMBER_OF_TRIANGLES * 3];
     GameObject[] spheres;
 
@@ -20,6 +20,9 @@ public class Gem : MonoBehaviour
     public float y1 = 0.6f;
     public float y2 = 0.8f;
     public float y3 = 1.0f;
+
+    public bool showVerticies = false;
+    public bool showNormals = false;
 
     float a, b, c, d, e, f; //line lengths
 
@@ -33,45 +36,38 @@ public class Gem : MonoBehaviour
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
         drawGem();
-        computeNormals();
-        displayNormals();
-        displayVerties();
+        if (showNormals)
+        {
+            displayNormals();
+        }
+        if (showVerticies)
+        {
+            displayVerties();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Mesh theMesh = GetComponent<MeshFilter>().mesh;
-        //computeNormals(verticies, normals);
-        theMesh.vertices = verticies;
-        theMesh.normals = normals;
-        theMesh.uv = uv;
-        theMesh.triangles = triangles;
         x1 = Mathf.Cos(30 * Mathf.Deg2Rad) * r1;
         x2 = Mathf.Cos(60 * Mathf.Deg2Rad) * r2;
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
+        drawGem();
+        if (showNormals)
+        {
+            displayNormals();
+        }
+        if (showVerticies)
+        {
+            displayVerties();
+        }
     }
 
     void generateVerticies()
     {
         verticies = new Vector3[NUMBER_OF_VERTICIES];
         spheres = new GameObject[NUMBER_OF_VERTICIES];
-
-        //verticies[0] = new Vector3(0, 0, 0);
-        //verticies[1] = new Vector3(-x1, y1, -z1);
-        //verticies[2] = new Vector3(0, y1, -r1);
-        //verticies[3] = new Vector3(x1, y1, -z1);
-        //verticies[4] = new Vector3(x1, y1, z1);
-        //verticies[5] = new Vector3(0, y1, r1);
-        //verticies[6] = new Vector3(-x1, y1, z1);
-        //verticies[7] = new Vector3(-r2, y2, 0);
-        //verticies[8] = new Vector3(-x2, y2, -z2);
-        //verticies[9] = new Vector3(x2, y2, -z2);
-        //verticies[10] = new Vector3(r2, y2, 0);
-        //verticies[11] = new Vector3(x2, y2, z2);
-        //verticies[12] = new Vector3(-x2, y2, z2);
-        //verticies[13] = new Vector3(0, y3, 0);
 
         verticies[0] = new Vector3(0, 0, 0);//0
         verticies[1] = new Vector3(-x1, y1, -z1);//1-1
@@ -119,33 +115,21 @@ public class Gem : MonoBehaviour
         }
 
         //uv
+        computeUVs();
+        computeTriangles();
+        computeNormals();
 
-        //triangles
-        //triangleList[0] = new Triangle(0, 2, 0, 1);
-        //triangleList[1] = new Triangle(1, 3, 0, 2);
-        //triangleList[2] = new Triangle(2, 4, 0, 3);
-        //triangleList[3] = new Triangle(3, 5, 0, 4);
-        //triangleList[4] = new Triangle(4, 6, 0, 5);
-        //triangleList[5] = new Triangle(5, 1, 0, 6);
-        //triangleList[6] = new Triangle(6, 8, 1, 7);
-        //triangleList[7] = new Triangle(7, 8, 2, 1);
-        //triangleList[8] = new Triangle(8, 9, 2, 8);
-        //triangleList[9] = new Triangle(9, 9, 3, 2);
-        //triangleList[10] = new Triangle(10, 10, 3, 9);
-        //triangleList[11] = new Triangle(11, 10, 4, 3);
-        //triangleList[12] = new Triangle(12, 11, 4, 10);
-        //triangleList[13] = new Triangle(13, 11, 5, 4);
-        //triangleList[14] = new Triangle(14, 12, 5, 11);
-        //triangleList[15] = new Triangle(15, 12, 6, 5);
-        //triangleList[16] = new Triangle(16, 7, 6, 12);
-        //triangleList[17] = new Triangle(17, 7, 1, 6);
-        //triangleList[18] = new Triangle(18, 13, 8, 7);
-        //triangleList[19] = new Triangle(19, 13, 9, 8);
-        //triangleList[20] = new Triangle(20, 13, 10, 9);
-        //triangleList[21] = new Triangle(21, 13, 11, 10);
-        //triangleList[22] = new Triangle(22, 13, 12, 11);
-        //triangleList[23] = new Triangle(23, 13, 7, 12);
+        //computeNormals(verticies, normals);
 
+        theMesh.vertices = verticies;
+        theMesh.normals = normals;
+        theMesh.uv = uv;
+        theMesh.triangles = triangles;
+
+    }
+
+    void computeTriangles()
+    {
         //T4s
         triangleList[0] = new Triangle(0, 3, 0, 1);
         triangleList[1] = new Triangle(1, 6, 0, 3);
@@ -153,7 +137,7 @@ public class Gem : MonoBehaviour
         triangleList[3] = new Triangle(3, 10, 0, 7);
         triangleList[4] = new Triangle(4, 11, 0, 9);
         triangleList[5] = new Triangle(5, 2, 0, 11);
-        
+
         //T3s
         triangleList[6] = new Triangle(6, 17, 6, 3);
         triangleList[7] = new Triangle(7, 20, 8, 6);
@@ -161,7 +145,7 @@ public class Gem : MonoBehaviour
         triangleList[9] = new Triangle(9, 24, 12, 10);
         triangleList[10] = new Triangle(10, 13, 2, 11);
         triangleList[11] = new Triangle(11, 16, 4, 2);
-        
+
         //T2s
         triangleList[12] = new Triangle(12, 17, 20, 6);
         triangleList[13] = new Triangle(13, 22, 8, 20); //11 second, 4 second, 10
@@ -169,7 +153,7 @@ public class Gem : MonoBehaviour
         triangleList[15] = new Triangle(15, 14, 12, 24);
         triangleList[16] = new Triangle(16, 13, 16, 2);
         triangleList[17] = new Triangle(17, 18, 4, 16);
-        
+
         //T1s
         triangleList[18] = new Triangle(18, 25, 20, 17);
         triangleList[19] = new Triangle(19, 23, 20, 25);
@@ -186,14 +170,6 @@ public class Gem : MonoBehaviour
             triangles[index + 2] = tri.TriangleVerticies[2];
             index += 3;
         }
-
-        //computeNormals(verticies, normals);
-
-        theMesh.vertices = verticies;
-        //theMesh.normals = normals;
-        //theMesh.uv = uv;
-        theMesh.triangles = triangles;
-
     }
 
     void getLineLengths()
@@ -291,7 +267,6 @@ public class Gem : MonoBehaviour
                     }
                 }
             }
-
             // add normals together
             Vector3 combinedVectors = Vector3.zero;
             foreach (Triangle tri in trianglesWithThisVertex)
@@ -302,10 +277,38 @@ public class Gem : MonoBehaviour
             // normalize them and store
             normals[vertexNumber] = combinedVectors.normalized;
         }
+    }
 
+    void computeUVs()
+    {
+        float resolution = 1200;
 
-
-
+        uv[0] = new Vector2(490 / resolution, 29 / resolution); //0
+        uv[1] = new Vector2(199 / resolution, 591 / resolution); //1-1
+        uv[2] = new Vector2(589 / resolution, 654 / resolution); //1-2
+        uv[3] = new Vector2(390 / resolution, 654 / resolution); //2-1
+        uv[4] = new Vector2(778 / resolution, 586 / resolution); //2-2
+        uv[5] = new Vector2(199 / resolution, 591 / resolution); //3-1
+        uv[6] = new Vector2(589 / resolution, 654 / resolution); //3-2
+        uv[7] = new Vector2(390 / resolution, 654 / resolution); //4-1
+        uv[8] = new Vector2(778 / resolution, 586 / resolution); //4-2
+        uv[9] = new Vector2(199 / resolution, 591 / resolution); //5-1
+        uv[10] = new Vector2(589 / resolution, 654 / resolution); //5-2
+        uv[11] = new Vector2(390 / resolution, 654 / resolution); //6-1
+        uv[12] = new Vector2(778 / resolution, 586 / resolution); //6-2
+        uv[13] = new Vector2(489 / resolution, 880 / resolution); //7-1
+        uv[14] = new Vector2(1000 / resolution, 695 / resolution); //7-2
+        uv[15] = new Vector2(980 / resolution, 1002 / resolution); //7-3
+        uv[16] = new Vector2(761 / resolution, 833 / resolution); //8
+        uv[17] = new Vector2(489 / resolution, 880 / resolution); //9-1
+        uv[18] = new Vector2(1000 / resolution, 695 / resolution); //9-2
+        uv[19] = new Vector2(980 / resolution, 1002 / resolution); //9-3
+        uv[20] = new Vector2(761 / resolution, 833 / resolution); //10
+        uv[21] = new Vector2(489 / resolution, 880 / resolution); //11-1
+        uv[22] = new Vector2(1000 / resolution, 695 / resolution); //11-2
+        uv[23] = new Vector2(980 / resolution, 1002 / resolution); //11-3
+        uv[24] = new Vector2(761 / resolution, 833 / resolution); //12
+        uv[25] = new Vector2(680 / resolution, 1165 / resolution); //13
     }
 
     Vector3 faceNormal(int v1, int v2, int v3)
