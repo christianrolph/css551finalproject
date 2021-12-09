@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
+    public CatapultControll TheCatapultControl = null;
+
+    private void Awake()
+    {
+        this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
+        Debug.Assert(this.TheCatapultControl != null);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +25,10 @@ public class ProjectileBehavior : MonoBehaviour
     }
 
     // works similar to a constructor
-    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform)
+    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform, float fireAngle)
     {
         GameObject projectile = Instantiate(Resources.Load("Prefabs/Projectile")) as GameObject;
-        projectile.GetComponent<Renderer>().material.color = Color.blue;
+        projectile.GetComponent<Renderer>().material.color = Color.green;
 
         // decompose and get each components
         projectile.transform.localPosition = mCombinedParentXform.GetColumn(3);
@@ -51,7 +59,10 @@ public class ProjectileBehavior : MonoBehaviour
         projectile.transform.localPosition = currentPosition + (.0199f * projectile.transform.forward.normalized);
         projectile.transform.localPosition = projectile.transform.localPosition + (.1084f * projectile.transform.up.normalized);
 
-        return projectile.GetComponent<ProjectileBehavior>();
+        ProjectileBehavior projBehav = projectile.GetComponent<ProjectileBehavior>();
+        projBehav.InstantiateLaunchPhysics(fireAngle);
+
+        return projBehav;
     }
 
     public void setProjectileLocation(ref Matrix4x4 mCombinedParentXform)
@@ -84,5 +95,20 @@ public class ProjectileBehavior : MonoBehaviour
         Vector3 currentPosition = this.transform.localPosition;
         this.transform.localPosition = currentPosition + (.0199f * transform.forward.normalized);
         this.transform.localPosition = this.transform.localPosition + (.1084f * transform.up.normalized);
+    }
+
+    public void InstantiateLaunchPhysics(float fireAngle)
+    {
+        float size = this.TheCatapultControl.transform.localScale.y / 10f;  // use this as the "strenth" of the launcher
+
+        // attach physics to this game object
+        SimpleMotionPhysics s = this.gameObject.AddComponent<SimpleMotionPhysics>();
+        s.transform.localPosition = this.transform.localPosition;
+        s.Velocity = size * Math.Abs(fireAngle) * (transform.up + transform.forward).normalized; // should be a 45 degree angle
+        // s.Velocity = size * (transform.up + transform.forward).normalized; // should be a 45 degree angle
+        s.Acceleration = Vector3.zero;  // Initial acceleration follow the current up
+        s.GravitationPull = this.TheCatapultControl.GravitationPull * Vector3.up;
+
+        Debug.Log($"Launched at FireAngle: {fireAngle}");
     }
 }

@@ -81,7 +81,7 @@ public class SceneNode : MonoBehaviour {
             string.Equals(this.gameObject.name, "ArmNode", System.StringComparison.OrdinalIgnoreCase) &&
             this.TheCatapultControl.CreateNewProjectile == true)
         {
-            ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform);
+            ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle);
             this.TheCatapultControl.CreateNewProjectile = false;
         }
     }

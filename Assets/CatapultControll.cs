@@ -7,6 +7,7 @@ public class CatapultControll : MonoBehaviour
 {
     public Vector2 MovementVector;
     public float ShotPowerAngle;
+    public float LastFiredPositionAngle;
     public float AimAxisAngle;
     public bool isFiring = false;
     public float ElapsedTime;   // how much time since last frame
@@ -30,6 +31,10 @@ public class CatapultControll : MonoBehaviour
     public float MaxAimAxisRotateLeft;
     public float MaxAimAxisRotateRight;
     public float InitialPositionAimAxis;
+
+    // for launch physics
+    public float LaunchSpeedScale = 125f;
+    public float GravitationPull = -50f;
 
     public bool TEST_MODE = false;
 
@@ -148,6 +153,7 @@ public class CatapultControll : MonoBehaviour
         {
             if (!TEST_MODE)
             {
+                this.LastFiredPositionAngle = this.ShotPowerAngle;
                 this.isFiring = true;
             }
             //return true;
