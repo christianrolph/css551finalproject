@@ -38,9 +38,11 @@ public class CatapultControll : MonoBehaviour
     public float GravitationPull = -50f;
 
     public bool TEST_MODE = false;
+    TheWorld world;
 
     private void Awake()
     {
+        world = FindObjectOfType<TheWorld>();
         if (!TEST_MODE)
         {
             Debug.Assert(this.ArmNode != null);
@@ -207,10 +209,12 @@ public class CatapultControll : MonoBehaviour
         Vector3 direction = adjustIntoV3.normalized;
 
         // calculate next direction
-        Vector3 currentPostion =  this.BaseNode.transform.localPosition;
+        //Vector3 currentPostion =  this.BaseNode.transform.localPosition;
+        Vector3 currentPostion = this.world.transform.localPosition;
         Vector3 nextPosition = currentPostion + (this.ElapsedTime * speed * direction);
 
         // move to next direction
-        this.BaseNode.transform.position = nextPosition;
+        //this.BaseNode.transform.position = nextPosition;
+        this.world.transform.position = nextPosition;
     }
 }

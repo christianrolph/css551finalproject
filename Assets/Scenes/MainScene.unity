@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2335,6 +2335,10 @@ GameObject:
   - component: {fileID: 1129863007}
   - component: {fileID: 1129863008}
   - component: {fileID: 1129863009}
+  - component: {fileID: 1129863013}
+  - component: {fileID: 1129863012}
+  - component: {fileID: 1129863011}
+  - component: {fileID: 1129863010}
   m_Layer: 0
   m_Name: TheWorld
   m_TagString: Untagged
@@ -2387,6 +2391,7 @@ MonoBehaviour:
   LastFiredPositionAngle: 0
   AimAxisAngle: 0
   isFiring: 0
+  isPullingBackArm: 0
   ElapsedTime: 0
   TotalTime: 0
   mockController: {fileID: 305920937}
@@ -2398,6 +2403,7 @@ MonoBehaviour:
   MinPulledBackCatapultArm: 0
   InitialCatapultArmPosition: 0
   FireAnimationAngleDelta: 0.1
+  PullBackAnimationAngleDelta: 0
   MaxAimAxisRotateLeft: 0
   MaxAimAxisRotateRight: 0
   InitialPositionAimAxis: 0
@@ -2418,6 +2424,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GemPrefab: {fileID: 7331023696260105611, guid: b5b564a6d8b0f334a9634e43b28ac973, type: 3}
   GemsDestroyedCount: 0
+--- !u!114 &1129863010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afd5316c63705643b3daba5a6e923bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTetherWhenManipulating: 0
+  IsBoundsHandles: 0
+--- !u!114 &1129863011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181cd563a8349c34ea8978b0bc8d9c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostTransform: {fileID: 1129863006}
+  manipulationType: 3
+  twoHandedManipulationType: 7
+  allowFarManipulation: 1
+  useForcesForNearManipulation: 0
+  oneHandRotationModeNear: 1
+  oneHandRotationModeFar: 1
+  releaseBehavior: 3
+  transformSmoothingLogicType:
+    reference: Microsoft.MixedReality.Toolkit.Utilities.DefaultTransformSmoothingLogic,
+      Microsoft.MixedReality.Toolkit.SDK
+  smoothingFar: 1
+  smoothingNear: 1
+  moveLerpTime: 0.001
+  rotateLerpTime: 0.001
+  scaleLerpTime: 0.001
+  enableConstraints: 1
+  constraintsManager: {fileID: 1129863012}
+  elasticsManager: {fileID: 0}
+  onManipulationStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onManipulationEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1129863012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98de877dee5fc341b4eb59dfdab266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoConstraintSelection: 1
+  selectedConstraints: []
+--- !u!65 &1129863013
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0.125, z: 0}
 --- !u!1 &1195369629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,7 +2554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   World: {fileID: 0}
-  NodeOrigin: {x: 0, y: -0.2, z: 0.5}
+  NodeOrigin: {x: 0, y: 0, z: 0}
   PrimitiveList:
   - {fileID: 1386683508}
   AxisFrame: {fileID: 0}
