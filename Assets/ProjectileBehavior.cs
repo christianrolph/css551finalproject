@@ -10,7 +10,7 @@ public class ProjectileBehavior : MonoBehaviour
     private void Awake()
     {
         this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
-        Debug.Assert(this.TheCatapultControl != null);
+        //Debug.Assert(this.TheCatapultControl != null);
     }
     // Start is called before the first frame update
     void Start()
