@@ -14,7 +14,8 @@ public class TheWorld : MonoBehaviour  {
 
     private void Update()
     {
-        Matrix4x4 i = Matrix4x4.identity;
+        //Matrix4x4 i = Matrix4x4.identity;
+        Matrix4x4 i = Matrix4x4.TRS(transform.localPosition, transform.localRotation, transform.localScale);
         TheRoot.CompositeXform(ref i);
     }
     public void QuitApplication()
