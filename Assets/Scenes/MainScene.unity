@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -240,6 +240,22 @@ MonoBehaviour:
         - m_Target: {fileID: 1951036716}
           m_TargetAssemblyTypeName: TestText, Assembly-CSharp
           m_MethodName: SayHello
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Create Gem
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1129863009}
+          m_TargetAssemblyTypeName: GemHandler, Assembly-CSharp
+          m_MethodName: CreateGem
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1479,58 +1495,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1277532148867413175, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532148867413175, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532148867413175, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532148988466702, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.042
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532148988466702, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149033200212, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149033200212, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149033200212, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149304401855, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.042
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149304401855, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149614314691, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149614314691, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149614314691, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1277532149685285268, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
       propertyPath: m_Name
       value: RemoteController
@@ -1538,18 +1502,6 @@ PrefabInstance:
     - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1590,46 +1542,6 @@ PrefabInstance:
     - target: {fileID: 1277532149685285270, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150396985774, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150396985774, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150396985774, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150453517567, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150453517567, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150453517567, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150572665508, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150572665508, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1277532150572665508, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1292654131267156391, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
-      propertyPath: twoHandedManipulationType
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe0cd1fd3c65e064e9e008419a922323, type: 3}
@@ -2390,6 +2302,7 @@ GameObject:
   - component: {fileID: 1129863006}
   - component: {fileID: 1129863007}
   - component: {fileID: 1129863008}
+  - component: {fileID: 1129863009}
   m_Layer: 0
   m_Name: TheWorld
   m_TagString: Untagged
@@ -2459,6 +2372,20 @@ MonoBehaviour:
   LaunchSpeedScale: 125
   GravitationPull: -50
   TEST_MODE: 0
+--- !u!114 &1129863009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129863005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09250c0f2203e4143b705b663983e703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GemPrefab: {fileID: 7331023696260105611, guid: b5b564a6d8b0f334a9634e43b28ac973, type: 3}
+  GemsDestroyedCount: 0
 --- !u!1 &1195369629
 GameObject:
   m_ObjectHideFlags: 0

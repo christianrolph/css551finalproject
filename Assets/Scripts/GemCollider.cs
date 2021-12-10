@@ -9,10 +9,12 @@ public class GemCollider : MonoBehaviour
 
     Vector3 lastPos;
     bool isGrabbed = false;
+    GemHandler gemHandler;
 
     // Start is called before the first frame update
     void Start()
     {
+        gemHandler = FindObjectOfType<GemHandler>();
         lastPos = transform.localPosition;
         Debug.Assert(GemGlow != null);
         GemGlow.SetActive(false);
@@ -61,6 +63,7 @@ public class GemCollider : MonoBehaviour
 
     void gemHit()
     {
+        gemHandler.GemHit(this);
         GameObject.Destroy(gameObject);
     }
 }
