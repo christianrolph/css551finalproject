@@ -30,7 +30,7 @@ public class RemoteController : MonoBehaviour
     {
         if (!catapultControll.isFiring)
         {
-            ShotEcho.text = "Shot Angle:\n0" + (char)176;
+            //ShotEcho.text = "Shot Angle:\n0" + (char)176;
             catapultControll.Fire();
             //ShotPower.SnapBack();
         }
