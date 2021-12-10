@@ -37,7 +37,6 @@ public class GemCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collide");
         if (other.gameObject.GetComponent<ProjectileBehavior>() != null)
         {
             gemHit();
@@ -62,8 +61,6 @@ public class GemCollider : MonoBehaviour
 
     void gemHit()
     {
-        Debug.Log("Hit");
-        //do stuff
-        GameObject.Destroy(gameObject);
+        //GameObject.Destroy(gameObject);
     }
 }

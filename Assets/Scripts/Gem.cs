@@ -14,6 +14,7 @@ public class Gem : MonoBehaviour
     Vector2[] uv;
     int[] triangles = new int[NUMBER_OF_TRIANGLES * 3];
     GameObject[] spheres;
+    GameObject[] lines;
 
     public float r1 = 0.2f;
     public float r2 = 0.275f;
@@ -58,14 +59,6 @@ public class Gem : MonoBehaviour
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
         drawGem();
-        if (showNormals)
-        {
-            displayNormals();
-        }
-        if (showVerticies)
-        {
-            displayVerties();
-        }
     }
 
     void generateVerticies()
