@@ -18,15 +18,21 @@ public class SceneNode : MonoBehaviour {
     public CatapultControll TheCatapultControl = null;
     public ProjectileBehavior Projectile = null;    // the projectile
 
+
+    public bool IsGem = false;
+
 	// Use this for initialization
 	protected void Start () {
         InitializeSceneNode();
 
-        this.World = GameObject.FindObjectOfType<TheWorld>();
-        this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
+        if (!IsGem)
+        {
+            this.World = GameObject.FindObjectOfType<TheWorld>();
+            this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
+            Debug.Assert(this.TheCatapultControl != null);
+            Debug.Assert(this.World != null);
+        }
 
-        Debug.Assert(this.World != null);
-        Debug.Assert(this.TheCatapultControl != null);
 	}
 	
 	// Update is called once per frame
@@ -60,17 +66,18 @@ public class SceneNode : MonoBehaviour {
         // disseminate to primitives
         foreach (NodePrimitive p in PrimitiveList)
         {
+            //Debug.Log("CombindedXform: x" + mCombinedParentXform[12] + " y" + mCombinedParentXform[13] + " z" + mCombinedParentXform[14]);
             p.LoadShaderMatrix(ref mCombinedParentXform);
         }
 
         // disseminate to axis frame
-        if (this.AxisFrame != null)
+        if (!IsGem && this.AxisFrame != null)
         {
             this.AxisFrame.setAxisFrame(ref mCombinedParentXform);
         }
 
         // disseminate to the Scene Hierarchy Projectile
-        if (this.Projectile != null)
+        if (!IsGem && this.Projectile != null)
         {
             this.Projectile.setProjectileLocation(ref mCombinedParentXform);
         }
