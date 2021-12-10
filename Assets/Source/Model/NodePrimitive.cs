@@ -14,11 +14,17 @@ public class NodePrimitive: MonoBehaviour {
     private Vector3 OrigPivot;
     private bool hasOrigInfoBeenStored = false;
 
+    public bool IsGem = false;
+
 	// Use this for initialization
 	void Start () {
         DegreeChange = 0.4f;
-        this.TheCatapultControl = GameObject.Find("TheWorld")?.GetComponent<CatapultControll>();
-        Debug.Assert(this.TheCatapultControl != null);
+
+        if (!IsGem)
+        {
+            this.TheCatapultControl = GameObject.Find("TheWorld")?.GetComponent<CatapultControll>();
+            Debug.Assert(this.TheCatapultControl != null);
+        }
 
         // adjust rotation direction for hanging capsule
         //if (Rotating && string.Equals(this.gameObject.name, "Capsule", System.StringComparison.OrdinalIgnoreCase))
@@ -37,9 +43,11 @@ public class NodePrimitive: MonoBehaviour {
         Matrix4x4 pivot = Matrix4x4.TRS(Pivot, Quaternion.identity, Vector3.one);
         Matrix4x4 invPivot = Matrix4x4.TRS(-Pivot, Quaternion.identity, Vector3.one);
         Matrix4x4 trs;
+
         if (!Rotating)
         {
             trs = Matrix4x4.TRS(transform.localPosition, transform.localRotation, transform.localScale);
+            //Debug.Log("Mesh Local Pos: " + transform.localPosition);
         }
         else
         {
@@ -50,13 +58,10 @@ public class NodePrimitive: MonoBehaviour {
                 {
                     DegreeDirection *= -1f;  // change direction of rotation
                 }
-            } 
-            else
+            }
+            if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270)
             {
-                if (transform.localEulerAngles.z > 90 && transform.localEulerAngles.z < 270)
-                {
-                    DegreeDirection *= -1f;  // change direction of rotation
-                }
+                DegreeDirection *= -1f;  // change direction of rotation
             }
 
             Quaternion q = Quaternion.AngleAxis(DegreeDirection * DegreeChange, Vector3.forward);
@@ -66,6 +71,10 @@ public class NodePrimitive: MonoBehaviour {
         }
         Matrix4x4 m = parentNodeMatrix * pivot * trs * invPivot;
         GetComponent<Renderer>().material.SetMatrix("MyXformMat", m);
-        GetComponent<Renderer>().material.SetColor("MyColor", MyColor);
+
+        if (!IsGem)
+        {
+            GetComponent<Renderer>().material.SetColor("MyColor", MyColor);
+        }
     }
 }

@@ -20,6 +20,8 @@ public class Gem : MonoBehaviour
     public float y1 = 0.6f;
     public float y2 = 0.8f;
     public float y3 = 1.0f;
+    public MeshFilter _MeshFilter;
+    Mesh theMesh;
 
     public bool showVerticies = false;
     public bool showNormals = false;
@@ -31,6 +33,8 @@ public class Gem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Assert(_MeshFilter != null);
+        theMesh = _MeshFilter.mesh;
         x1 = Mathf.Cos(30 * Mathf.Deg2Rad) * r1;
         x2 = Mathf.Cos(60 * Mathf.Deg2Rad) * r2;
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
@@ -99,7 +103,6 @@ public class Gem : MonoBehaviour
 
     void drawGem()
     {
-        Mesh theMesh = GetComponent<MeshFilter>().mesh;
         theMesh.Clear();
         verticies = new Vector3[NUMBER_OF_VERTICIES];
         triangleList = new Triangle[NUMBER_OF_TRIANGLES];
