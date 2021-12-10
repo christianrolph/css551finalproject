@@ -164,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 7331023696260105611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.573}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7331023696914038073}
   - {fileID: 7331023695828174264}
@@ -180,7 +180,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7331023696260105611}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.3
   m_Height: 1
@@ -348,6 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2e17e6cfc6c494499c67fa70defab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vertexObjects: []
+  normalObjects: []
   r1: 0.2
   r2: 0.275
   y1: 0.6
