@@ -58,14 +58,6 @@ public class Gem : MonoBehaviour
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
         drawGem();
-        if (showNormals)
-        {
-            displayNormals();
-        }
-        if (showVerticies)
-        {
-            displayVerties();
-        }
     }
 
     void generateVerticies()

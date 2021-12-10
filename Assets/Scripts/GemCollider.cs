@@ -28,16 +28,16 @@ public class GemCollider : MonoBehaviour
         }
         if (!isGrabbed)
         {
-            Quaternion rotation = rotateGem();
-            transform.localRotation *= rotation;
+           //Quaternion rotation = rotateGem();
+           //transform.localRotation *= rotation;
         }
         Matrix4x4 matrix = Matrix4x4.TRS(transform.localPosition, transform.localRotation, transform.localScale);
         GemNode.CompositeXform(ref matrix);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.GetComponent<ProjectileBehavior>() != null)
+        if (other.gameObject.GetComponent<ProjectileBehavior>() != null)
         {
             gemHit();
         }
@@ -61,6 +61,6 @@ public class GemCollider : MonoBehaviour
 
     void gemHit()
     {
-
+        //GameObject.Destroy(gameObject);
     }
 }
