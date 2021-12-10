@@ -88,8 +88,14 @@ public class SceneNode : MonoBehaviour {
             string.Equals(this.gameObject.name, "ArmNode", System.StringComparison.OrdinalIgnoreCase) &&
             this.TheCatapultControl.CreateNewProjectile == true)
         {
+            // launch the projectile
             ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle);
+            
+            // creation is complete
             this.TheCatapultControl.CreateNewProjectile = false;
+
+            // set bool to pull the arm back
+            this.TheCatapultControl.isPullingBackArm = true;
         }
     }
 }

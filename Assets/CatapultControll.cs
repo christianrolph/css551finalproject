@@ -9,7 +9,8 @@ public class CatapultControll : MonoBehaviour
     public float ShotPowerAngle;
     public float LastFiredPositionAngle;
     public float AimAxisAngle;
-    public bool isFiring = false;
+    public bool isFiring = false;               // for firing animation
+    public bool isPullingBackArm = false;       // for pull back arm animation
     public float ElapsedTime;   // how much time since last frame
     public float TotalTime;     // a time counter
 
@@ -21,12 +22,12 @@ public class CatapultControll : MonoBehaviour
 
     public bool CreateNewProjectile;
 
-
     public float MaxPulledBackCatapultArm;
     public float MinPulledBackCatapultArm;
     public float InitialCatapultArmPosition;
     
     public float FireAnimationAngleDelta;
+    public float PullBackAnimationAngleDelta;
 
     public float MaxAimAxisRotateLeft;
     public float MaxAimAxisRotateRight;
@@ -49,7 +50,8 @@ public class CatapultControll : MonoBehaviour
         this.MaxPulledBackCatapultArm = -125f;
         this.MinPulledBackCatapultArm = 0f;
         this.InitialCatapultArmPosition = 0f;
-        this.FireAnimationAngleDelta = 20f;
+        this.FireAnimationAngleDelta = 7f;
+        this.PullBackAnimationAngleDelta = -1f;
 
         this.MaxAimAxisRotateLeft = -180f;
         this.MaxAimAxisRotateRight = 180f;
@@ -74,6 +76,10 @@ public class CatapultControll : MonoBehaviour
         {
             AnimateShot(FireAnimationAngleDelta);
         }
+        else if (this.isPullingBackArm)
+        {
+            AnimatePullBackArm(PullBackAnimationAngleDelta);
+        }
 
         // move catapult
         MoveToNextPosition();
@@ -97,14 +103,47 @@ public class CatapultControll : MonoBehaviour
         {
             // reached end of animation
             // reset slider
-            this.ShotPowerAngle = 0; // ensure a return to known point
+            this.ShotPowerAngle = 0; // go to known position
             this.mockController.ShotPowerSlider.SetSliderValue(0);
             
             this.isFiring = false;
 
-            // instantiate a new projectile
+            // instantiate and fire new projectile
             this.CreateNewProjectile = true;
         }
+    }
+
+    public void AnimatePullBackArm(float angleChange)
+    {
+        // ensure we don't overshoot
+        //if (Math.Abs(angleChange + this.ShotPowerAngle) > Math.Abs(this.LastFiredPositionAngle))
+        if (Math.Abs(this.ShotPowerAngle + angleChange) > Math.Abs(this.LastFiredPositionAngle))
+        {
+            // we would overshoot, so just stop at 0
+            SetShotPowerAngle(this.LastFiredPositionAngle);
+        }
+        else
+        {
+            SetShotPowerAngle(this.ShotPowerAngle + angleChange);
+        }
+
+
+        if (this.ShotPowerAngle <= this.LastFiredPositionAngle)
+        {
+            // reached end of animation
+            // reset slider
+            SetShotPowerAngle(this.LastFiredPositionAngle); // go to known position
+            this.mockController.ShotPowerSlider.SetSliderValue(this.ShotPowerAngle);
+
+            this.isPullingBackArm = false;
+        }
+    }
+
+    public void PullArmToLastFiringPosition()
+    {
+        // pull catapult arm back to firing position
+        SetShotPowerAngle(this.LastFiredPositionAngle);
+        this.mockController.ShotPowerSlider.SetSliderValue(this.ShotPowerAngle);    // angle should have been updated by SetShotPowerAngle
     }
 
     public void SetMovementVector(Vector2 vectorToSet)
