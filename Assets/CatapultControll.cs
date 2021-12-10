@@ -184,9 +184,10 @@ public class CatapultControll : MonoBehaviour
 
     public void Fire()
     {
-        if (isFiring)
+        // if we're currently in animation
+        if (isFiring || isPullingBackArm)
         {
-            //return false;
+            // do nothing
         }
         else
         {
@@ -195,7 +196,6 @@ public class CatapultControll : MonoBehaviour
                 this.LastFiredPositionAngle = this.ShotPowerAngle;
                 this.isFiring = true;
             }
-            //return true;
         }
     }
 
