@@ -61,6 +61,6 @@ public class GemCollider : MonoBehaviour
 
     void gemHit()
     {
-        //GameObject.Destroy(gameObject);
+        GameObject.Destroy(gameObject);
     }
 }

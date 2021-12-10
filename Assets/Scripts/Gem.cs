@@ -13,8 +13,8 @@ public class Gem : MonoBehaviour
     Vector3[] normals;
     Vector2[] uv;
     int[] triangles = new int[NUMBER_OF_TRIANGLES * 3];
-    GameObject[] spheres;
-    GameObject[] lines;
+    public GameObject[] vertexObjects;
+    public GameObject[] normalObjects;
 
     public float r1 = 0.2f;
     public float r2 = 0.275f;
@@ -23,6 +23,7 @@ public class Gem : MonoBehaviour
     public float y3 = 1.0f;
     public MeshFilter _MeshFilter;
     Mesh theMesh;
+    Transform meshTransform;
 
     public bool showVerticies = false;
     public bool showNormals = false;
@@ -31,24 +32,32 @@ public class Gem : MonoBehaviour
 
     float x1, x2, z1, z2;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         Debug.Assert(_MeshFilter != null);
         theMesh = _MeshFilter.mesh;
+        meshTransform = _MeshFilter.gameObject.transform;
+
         x1 = Mathf.Cos(30 * Mathf.Deg2Rad) * r1;
         x2 = Mathf.Cos(60 * Mathf.Deg2Rad) * r2;
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
         drawGem();
-        if (showNormals)
+        normalObjects = generateLines();
+        vertexObjects = generateSphers();
+        for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
         {
-            displayNormals();
+            normalObjects[i].SetActive(showNormals);
         }
-        if (showVerticies)
+        for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
         {
-            displayVerties();
+            vertexObjects[i].SetActive(showVerticies);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -59,13 +68,48 @@ public class Gem : MonoBehaviour
         z1 = Mathf.Tan(30 * Mathf.Deg2Rad) * x1;
         z2 = Mathf.Sin(60 * Mathf.Deg2Rad) * r2;
         drawGem();
+        if (showNormals)
+        {
+            displayNormals(normalObjects);
+        }
+        if (showVerticies)
+        {
+            displayVerties(vertexObjects);
+        }
+    }
+
+    GameObject[] generateLines()
+    {
+        GameObject[] lines = new GameObject[NUMBER_OF_VERTICIES];
+        for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
+        {
+            lines[i] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            Vector3 v = (verticies[i] + 0.2f * normals[i]) - verticies[i];
+            lines[i].transform.localPosition = verticies[i] + v.normalized * v.magnitude;
+            lines[i].transform.localScale = new Vector3(0.02f, v.magnitude, 0.02f);
+            lines[i].transform.up = v.normalized;
+            lines[i].GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        return lines;
+    }
+
+    GameObject[] generateSphers()
+    {
+        GameObject[] spheres = new GameObject[NUMBER_OF_VERTICIES];
+        for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
+        {
+            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            spheres[i].transform.localPosition = verticies[i];
+            spheres[i].transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            spheres[i].GetComponent<MeshRenderer>().material.color = Color.black;
+            spheres[i].name = "Vertex " + i;
+        }
+        return spheres;
     }
 
     void generateVerticies()
     {
         verticies = new Vector3[NUMBER_OF_VERTICIES];
-        spheres = new GameObject[NUMBER_OF_VERTICIES];
-
         verticies[0] = new Vector3(0, 0, 0);//0
         verticies[1] = new Vector3(-x1, y1, -z1);//1-1
         verticies[2] = new Vector3(-x1, y1, -z1);//1-2
@@ -180,6 +224,8 @@ public class Gem : MonoBehaviour
 
     void computeNormals()
     {
+        Matrix4x4 meshTrs = Matrix4x4.TRS(meshTransform.position, meshTransform.rotation, meshTransform.localScale);
+
         Vector3[] triangleNormals = new Vector3[NUMBER_OF_TRIANGLES];
         for (int i = 0; i < NUMBER_OF_TRIANGLES; i++)
         {
@@ -314,28 +360,23 @@ public class Gem : MonoBehaviour
         return Vector3.Cross(a, b).normalized;
     }
 
-    void displayNormals()
+    void displayNormals(GameObject[] lines)
     {
         for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
         {
-            GameObject line = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             Vector3 v = (verticies[i] + 0.2f * normals[i]) - verticies[i];
-            line.transform.localPosition = verticies[i] + v.normalized * v.magnitude;
-            line.transform.localScale = new Vector3(0.02f, v.magnitude, 0.02f);
-            line.transform.up = v.normalized;
-            line.GetComponent<MeshRenderer>().material.color = Color.red;
+            lines[i].transform.localPosition = verticies[i] + v.normalized * v.magnitude;
+            lines[i].transform.localScale = new Vector3(0.02f, v.magnitude, 0.02f);
+            lines[i].transform.up = v.normalized;
         }
     }
 
-    void displayVerties()
+    void displayVerties(GameObject[] spheres)
     {
         for (int i = 0; i < NUMBER_OF_VERTICIES; i++)
         {
-            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             spheres[i].transform.localPosition = verticies[i];
             spheres[i].transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-            spheres[i].GetComponent<MeshRenderer>().material.color = Color.black;
-            spheres[i].name = "Vertex " + i;
         }
     }
 }
