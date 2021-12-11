@@ -21,9 +21,10 @@ public class GemHandler : MonoBehaviour
         gems.Add(gem.GetComponent<GemCollider>());
     }
 
-    public void GemHit(GemCollider gem)
+    public void GemHit(GemCollider gem, ProjectileBehavior projectile)
     {
         gems.Remove(gem);
         GemsDestroyedCount++;
+        projectile.DestroyProjectile();
     }
 }
