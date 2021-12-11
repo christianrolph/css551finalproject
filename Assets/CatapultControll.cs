@@ -18,6 +18,7 @@ public class CatapultControll : MonoBehaviour
     public List<GameObject> PredictiveAimSpheres;
     public AimSphere LaunchAimSphere;    // where projectiles will be launched from for predictive aim
     public int NumOfAimPoints;
+    public bool isAimAssistOn;
     public float ProjectileAliveTime;
 
     public MockMainController mockController;
@@ -76,8 +77,9 @@ public class CatapultControll : MonoBehaviour
 
         Debug.Assert(this.SmallCamera != null);
 
-        this.NumOfAimPoints = 200;
+        this.NumOfAimPoints = 100;
         this.ProjectileAliveTime = 1.15f;
+        this.isAimAssistOn = true;
     }
     // Start is called before the first frame update
     void Start()
@@ -252,11 +254,11 @@ public class CatapultControll : MonoBehaviour
         // disable the aim sphere
         this.LaunchAimSphere.gameObject.SetActive(false);
 
-        // only do this if we're not animating
-        if (isFiring == false && isPullingBackArm == false && ShotPowerAngle != 0)
+        // only do this if we're not animating and AimAssist is on
+        if (isFiring == false && isPullingBackArm == false && ShotPowerAngle != 0 && isAimAssistOn)
         {
             // get the time offset
-            float timeOffset = this.ProjectileAliveTime / this.NumOfAimPoints;
+            float timeOffset = this.ProjectileAliveTime / this.NumOfAimPoints;  // 2x aim points populates aim points closer
 
             // set initial variables
             float size = transform.localScale.y / 9f;
@@ -286,6 +288,18 @@ public class CatapultControll : MonoBehaviour
 
             // reenable the aim sphere
             this.LaunchAimSphere.gameObject.SetActive(true);
+        }
+    }
+
+    public void ToggleAimAssist()
+    {
+        if (this.isAimAssistOn)
+        {
+            this.isAimAssistOn = false;
+        }
+        else
+        {
+            this.isAimAssistOn = true;
         }
     }
 }

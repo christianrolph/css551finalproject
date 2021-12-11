@@ -405,6 +405,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - keyword: Aim Assist
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1129863008}
+          m_TargetAssemblyTypeName: CatapultControll, Assembly-CSharp
+          m_MethodName: ToggleAimAssist
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   persistentKeywords: 0
   speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!4 &55120247
@@ -2870,6 +2886,7 @@ MonoBehaviour:
   PredictiveAimSpheres: []
   LaunchAimSphere: {fileID: 0}
   NumOfAimPoints: 0
+  isAimAssistOn: 0
   ProjectileAliveTime: 0
   mockController: {fileID: 305920937}
   ArmNode: {fileID: 115267547}

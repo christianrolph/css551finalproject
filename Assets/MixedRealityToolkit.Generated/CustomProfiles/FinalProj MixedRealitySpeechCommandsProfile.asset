@@ -79,3 +79,10 @@ MonoBehaviour:
       id: 0
       description: None
       axisConstraint: 0
+  - localizationKey: 
+    keyword: Aim Assist
+    keyCode: 287
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
