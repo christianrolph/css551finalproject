@@ -108,7 +108,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     public void InstantiateLaunchPhysics(float fireAngle, float projectileAliveTime)
     {
-        float size = this.TheCatapultControl.transform.localScale.y / 10f;  // use this as the "strenth" of the launcher
+        float size = this.TheCatapultControl.transform.localScale.y / 9f;  // use this as the "strenth" of the launcher
 
         // attach physics to this game object
         SimpleMotionPhysics s = this.gameObject.AddComponent<SimpleMotionPhysics>();

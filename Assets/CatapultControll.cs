@@ -41,7 +41,7 @@ public class CatapultControll : MonoBehaviour
 
     // for launch physics
     public float LaunchSpeedScale = 125f;
-    public float GravitationPull = -50f;
+    public float GravitationPull = -1f;
 
     public bool TEST_MODE = false;
     TheWorld world;
@@ -76,7 +76,7 @@ public class CatapultControll : MonoBehaviour
 
         Debug.Assert(this.SmallCamera != null);
 
-        this.NumOfAimPoints = 100;
+        this.NumOfAimPoints = 200;
         this.ProjectileAliveTime = 1.15f;
     }
     // Start is called before the first frame update
@@ -259,7 +259,7 @@ public class CatapultControll : MonoBehaviour
             float timeOffset = this.ProjectileAliveTime / this.NumOfAimPoints;
 
             // set initial variables
-            float size = transform.localScale.y / 10f;
+            float size = transform.localScale.y / 9f;
             Vector3 gravitationPull = this.GravitationPull * Vector3.up;    // default is dropping downwards
             Vector3 acceleration = Vector3.zero;                            // default is dropping downwards
             Vector3 velocity = size * Math.Abs(fireAngle) * (this.LaunchAimSphere.transform.up + this.LaunchAimSphere.transform.forward).normalized;
