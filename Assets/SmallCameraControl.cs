@@ -22,7 +22,9 @@ public class SmallCameraControl : MonoBehaviour
     {
         // offset the camera to the new position up and behind
         Vector3 offSetPosition = projectileTransform.localPosition;
-        this.transform.localPosition = new Vector3(offSetPosition.x, offSetPosition.y + .082573f, offSetPosition.z - .328362f);
+        // this.transform.localPosition = new Vector3(offSetPosition.x, offSetPosition.y + .082573f, offSetPosition.z - .328362f);
+        this.transform.localPosition = offSetPosition + (.082573f * transform.up.normalized);         // move up
+        this.transform.localPosition = offSetPosition + (-.328362f * transform.forward.normalized);   // move back
 
         // adjust aim
         this.TheCamera.transform.LookAt(projectileTransform);
