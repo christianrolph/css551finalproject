@@ -88,7 +88,7 @@ public class SceneNode : MonoBehaviour {
             this.TheCatapultControl.CreateNewProjectile == true)
         {
             // launch the projectile
-            ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle, TheCatapultControl.SmallCamera);
+            ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle, TheCatapultControl.SmallCamera, TheCatapultControl.ProjectileAliveTime);
             
             // creation is complete
             this.TheCatapultControl.CreateNewProjectile = false;
@@ -102,6 +102,12 @@ public class SceneNode : MonoBehaviour {
            this.TheCatapultControl.SmallCamera != null)
         {
             this.TheCatapultControl.SmallCamera.SetCameraToSceneNode(ref mCombinedParentXform);
+        }
+
+        // set the predictive aim launch position
+        if (string.Equals(this.gameObject.name, "RotationNode", System.StringComparison.OrdinalIgnoreCase))
+        {
+            this.TheCatapultControl.LaunchAimSphere.SetAimSpherePosition(ref mCombinedParentXform);
         }
     }
 }

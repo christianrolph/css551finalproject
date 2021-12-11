@@ -26,7 +26,7 @@ public class ProjectileBehavior : MonoBehaviour
     }
 
     // works similar to a constructor
-    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform, float fireAngle, SmallCameraControl smallCamera)
+    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform, float fireAngle, SmallCameraControl smallCamera, float projectileAliveTime)
     {
         GameObject projectile = Instantiate(Resources.Load("Prefabs/Projectile")) as GameObject;
         projectile.GetComponent<Renderer>().material.color = Color.green;
@@ -69,7 +69,7 @@ public class ProjectileBehavior : MonoBehaviour
         }
 
         // launch
-        projBehav.InstantiateLaunchPhysics(fireAngle);
+        projBehav.InstantiateLaunchPhysics(fireAngle, projectileAliveTime);
 
         return projBehav;
     }
@@ -106,12 +106,13 @@ public class ProjectileBehavior : MonoBehaviour
         this.transform.localPosition = this.transform.localPosition + (.1084f * transform.up.normalized);
     }
 
-    public void InstantiateLaunchPhysics(float fireAngle)
+    public void InstantiateLaunchPhysics(float fireAngle, float projectileAliveTime)
     {
-        float size = this.TheCatapultControl.transform.localScale.y / 10f;  // use this as the "strenth" of the launcher
+        float size = this.TheCatapultControl.transform.localScale.y / 9f;  // use this as the "strenth" of the launcher
 
         // attach physics to this game object
         SimpleMotionPhysics s = this.gameObject.AddComponent<SimpleMotionPhysics>();
+        s.AliveTime = projectileAliveTime;
         s.transform.localPosition = this.transform.localPosition;
         s.Velocity = size * Math.Abs(fireAngle) * (transform.up + transform.forward).normalized; // should be a 45 degree angle
         // s.Velocity = size * (transform.up + transform.forward).normalized; // should be a 45 degree angle
