@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class TheWorld : MonoBehaviour  {
 
     public SceneNode TheRoot;
+    public GameObject Glow;
 
     private void Start()
     {
+        Glow.SetActive(false);
     }
 
     private void Update()
@@ -21,5 +23,10 @@ public class TheWorld : MonoBehaviour  {
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void ToggleGlow(bool isOn)
+    {
+        Glow.SetActive(isOn);
     }
 }
