@@ -14,6 +14,12 @@ public class CatapultControll : MonoBehaviour
     public float ElapsedTime;   // how much time since last frame
     public float TotalTime;     // a time counter
 
+    // for predictive aim
+    public List<GameObject> PredictiveAimSpheres;
+    public AimSphere LaunchAimSphere;    // where projectiles will be launched from for predictive aim
+    public int NumOfAimPoints;
+    public float ProjectileAliveTime;
+
     public MockMainController mockController;
 
     public Transform ArmNode;
@@ -46,10 +52,12 @@ public class CatapultControll : MonoBehaviour
     private void Awake()
     {
         world = FindObjectOfType<TheWorld>();
+        this.LaunchAimSphere = FindObjectOfType<AimSphere>();
         if (!TEST_MODE)
         {
             Debug.Assert(this.ArmNode != null);
             Debug.Assert(this.mockController != null);
+            Debug.Assert(this.LaunchAimSphere != null);
         }
         this.ShotPowerAngle = 0; // initial rotation should be 0
         this.MaxPulledBackCatapultArm = -125f;
@@ -67,6 +75,9 @@ public class CatapultControll : MonoBehaviour
         this.CreateNewProjectile = false;   // initially not launching a projectile
 
         Debug.Assert(this.SmallCamera != null);
+
+        this.NumOfAimPoints = 100;
+        this.ProjectileAliveTime = 1.15f;
     }
     // Start is called before the first frame update
     void Start()
@@ -78,8 +89,11 @@ public class CatapultControll : MonoBehaviour
     {
         this.ElapsedTime = Time.deltaTime;
 
+        // update predictive aim
+        SetPredictiveAim(this.ShotPowerAngle);
+
         // if firing, rotate powerangle
-        if(this.isFiring) // every quarter sec
+        if (this.isFiring) // every quarter sec
         {
             AnimateShot(FireAnimationAngleDelta);
         }
@@ -226,5 +240,52 @@ public class CatapultControll : MonoBehaviour
     public void SetSmallCamera(SmallCameraControl smallCamera)
     {
         this.SmallCamera = smallCamera;
+    }
+    public void SetPredictiveAim(float fireAngle)
+    {
+        // clear any existing aim spheres
+        foreach (GameObject aimSphere in this.PredictiveAimSpheres)
+        {
+            GameObject.Destroy(aimSphere);
+        }
+
+        // disable the aim sphere
+        this.LaunchAimSphere.gameObject.SetActive(false);
+
+        // only do this if we're not animating
+        if (isFiring == false && isPullingBackArm == false && ShotPowerAngle != 0)
+        {
+            // get the time offset
+            float timeOffset = this.ProjectileAliveTime / this.NumOfAimPoints;
+
+            // set initial variables
+            float size = transform.localScale.y / 10f;
+            Vector3 gravitationPull = this.GravitationPull * Vector3.up;    // default is dropping downwards
+            Vector3 acceleration = Vector3.zero;                            // default is dropping downwards
+            Vector3 velocity = size * Math.Abs(fireAngle) * (this.LaunchAimSphere.transform.up + this.LaunchAimSphere.transform.forward).normalized;
+            Vector3 aimPosition = this.LaunchAimSphere.transform.localPosition;
+
+            // create new ones, skip the first (AimSphere counts as first)
+            for (int aimPointNumber = 1; aimPointNumber <= this.NumOfAimPoints; aimPointNumber++)
+            {
+                // calculate it's position, aimPointNum times time
+                // simulates the passage of time
+                acceleration += gravitationPull * (aimPointNumber * timeOffset);    // change in acceleration
+                velocity += acceleration * (aimPointNumber * timeOffset);           // change in velocity
+                aimPosition += velocity * (aimPointNumber * timeOffset);
+                Vector3 newAimPointPosition = aimPosition;
+
+                // instantiate, and set scale, position
+                // add to list of all aim spheres
+                GameObject aimPointGameObj = Instantiate(Resources.Load("Prefabs/PredictiveAimPoint")) as GameObject;
+                aimPointGameObj.transform.localScale = this.LaunchAimSphere.transform.localScale;
+                aimPointGameObj.transform.localPosition = newAimPointPosition;
+                AimSphere sphere = aimPointGameObj.GetComponent<AimSphere>();
+                this.PredictiveAimSpheres.Add(sphere.gameObject);
+            }
+
+            // reenable the aim sphere
+            this.LaunchAimSphere.gameObject.SetActive(true);
+        }
     }
 }
