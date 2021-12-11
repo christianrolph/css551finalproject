@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7331023696260105612}
   - component: {fileID: 7331023696260105613}
   - component: {fileID: 7331023696260105602}
+  - component: {fileID: 489426837917201116}
   m_Layer: 0
   m_Name: TargetGem
   m_TagString: Untagged
@@ -164,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 7331023696260105611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.573}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 7331023696914038073}
   - {fileID: 7331023695828174264}
@@ -358,6 +359,22 @@ MonoBehaviour:
   _MeshFilter: {fileID: 7331023696914038054}
   showVerticies: 0
   showNormals: 0
+--- !u!114 &489426837917201116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331023696260105611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3e6359c9750ad4fb8a05c9b8704d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: -1
+  proximityType: -1
+  constraintOnRotation: -1
+  useLocalSpaceForConstraint: 0
 --- !u!1 &7331023696914038050
 GameObject:
   m_ObjectHideFlags: 0
