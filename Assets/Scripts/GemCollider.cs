@@ -39,9 +39,10 @@ public class GemCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<ProjectileBehavior>() != null)
+        ProjectileBehavior projectile = other.gameObject.GetComponent<ProjectileBehavior>();
+        if (projectile != null)
         {
-            gemHit();
+            gemHit(projectile);
         }
     }
 
@@ -61,9 +62,9 @@ public class GemCollider : MonoBehaviour
         return rotation;
     }
 
-    void gemHit()
+    void gemHit(ProjectileBehavior projectile)
     {
-        gemHandler.GemHit(this);
+        gemHandler.GemHit(this, projectile);
         GameObject.Destroy(gameObject);
     }
 }
