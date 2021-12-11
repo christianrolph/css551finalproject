@@ -12,6 +12,10 @@ public class TheWorld : MonoBehaviour  {
     private void Start()
     {
         Glow.SetActive(false);
+        GemHandler gemHandler = GetComponent<GemHandler>();
+        gemHandler.CreateGem(new Vector3(-0.5f, 0.3f, 1.0f));
+        gemHandler.CreateGem(new Vector3(0.0f, 0.3f, 1.0f));
+        gemHandler.CreateGem(new Vector3(0.5f, 0.3f, 1.0f));
     }
 
     private void Update()
