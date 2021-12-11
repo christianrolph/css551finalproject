@@ -84,18 +84,24 @@ public class SceneNode : MonoBehaviour {
 
         // determine creating a new projectile
         // only ArmNode does this, and it performs it one time
-        if (
-            string.Equals(this.gameObject.name, "ArmNode", System.StringComparison.OrdinalIgnoreCase) &&
+        if (string.Equals(this.gameObject.name, "ArmNode", System.StringComparison.OrdinalIgnoreCase) &&
             this.TheCatapultControl.CreateNewProjectile == true)
         {
             // launch the projectile
-            ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle);
+            ProjectileBehavior launchingProjectile = ProjectileBehavior.InstantiateProjectile(ref mCombinedParentXform, TheCatapultControl.LastFiredPositionAngle, TheCatapultControl.SmallCamera);
             
             // creation is complete
             this.TheCatapultControl.CreateNewProjectile = false;
 
             // set bool to pull the arm back
             this.TheCatapultControl.isPullingBackArm = true;
+        }
+
+        // set the camera if available
+        if(string.Equals(this.gameObject.name, "RotationNode", System.StringComparison.OrdinalIgnoreCase) &&
+           this.TheCatapultControl.SmallCamera != null)
+        {
+            this.TheCatapultControl.SmallCamera.SetCameraToSceneNode(ref mCombinedParentXform);
         }
     }
 }

@@ -6,11 +6,12 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour
 {
     public CatapultControll TheCatapultControl = null;
+    public SmallCameraControl SmallCamera = null;
 
     private void Awake()
     {
         this.TheCatapultControl = GameObject.FindObjectOfType<CatapultControll>();
-        //Debug.Assert(this.TheCatapultControl != null);
+        Debug.Assert(this.TheCatapultControl != null);
     }
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class ProjectileBehavior : MonoBehaviour
     }
 
     // works similar to a constructor
-    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform, float fireAngle)
+    public static ProjectileBehavior InstantiateProjectile(ref Matrix4x4 mCombinedParentXform, float fireAngle, SmallCameraControl smallCamera)
     {
         GameObject projectile = Instantiate(Resources.Load("Prefabs/Projectile")) as GameObject;
         projectile.GetComponent<Renderer>().material.color = Color.green;
@@ -60,6 +61,14 @@ public class ProjectileBehavior : MonoBehaviour
         projectile.transform.localPosition = projectile.transform.localPosition + (.1084f * projectile.transform.up.normalized);
 
         ProjectileBehavior projBehav = projectile.GetComponent<ProjectileBehavior>();
+
+        // attach camera if it's available
+        if (smallCamera != null)
+        {
+            projBehav.SmallCamera = smallCamera;
+        }
+
+        // launch
         projBehav.InstantiateLaunchPhysics(fireAngle);
 
         return projBehav;
@@ -72,10 +81,10 @@ public class ProjectileBehavior : MonoBehaviour
         Vector3 x = mCombinedParentXform.GetColumn(0);
         Vector3 y = mCombinedParentXform.GetColumn(1);
         Vector3 z = mCombinedParentXform.GetColumn(2);
-    
+
         // Code for size
-        //Vector3 size = new Vector3(x.magnitude, y.magnitude, z.magnitude);
-        //this.transform.localScale = size;
+        Vector3 size = new Vector3(x.magnitude / 20, y.magnitude / 20, z.magnitude / 20);
+        this.transform.localScale = size;
 
         // Align rotation
         // WorldTransform.localRotation = Quaternion.LookRotation(z / size.z, y / size.y);
@@ -110,5 +119,16 @@ public class ProjectileBehavior : MonoBehaviour
         s.GravitationPull = this.TheCatapultControl.GravitationPull * Vector3.up;
 
         Debug.Log($"Launched at FireAngle: {fireAngle}");
+    }
+
+    public void DestroyProjectile()
+    {
+        // return the small camera back to catapult
+        if (this.SmallCamera != null)
+        {
+            this.TheCatapultControl.SetSmallCamera(this.SmallCamera);
+        }
+
+        Destroy(gameObject);
     }
 }

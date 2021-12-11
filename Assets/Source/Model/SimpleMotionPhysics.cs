@@ -14,21 +14,24 @@ public class SimpleMotionPhysics : MonoBehaviour
     void Start()
     {
         this.TotalTime = 0f;
-        this.AliveTime = 3f;
+        this.AliveTime = 1.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
         this.TotalTime += Time.smoothDeltaTime;
+        ProjectileBehavior projectile = this.gameObject.GetComponent<ProjectileBehavior>();
 
         if (this.TotalTime >= this.AliveTime)
         {
-            Destroy(gameObject);
+            // destroy the projectile
+            projectile.DestroyProjectile();
         }
 
         Acceleration += GravitationPull * Time.smoothDeltaTime;        // change in acceleration
         Velocity += Acceleration * Time.smoothDeltaTime;               // change in Velocity
         transform.localPosition += Velocity * Time.smoothDeltaTime;    // change in position
+        projectile.SmallCamera?.SetCameraPostionToProjectile(transform);   // update the small camera
     }
 }

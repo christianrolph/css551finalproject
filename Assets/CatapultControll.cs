@@ -40,6 +40,9 @@ public class CatapultControll : MonoBehaviour
     public bool TEST_MODE = false;
     TheWorld world;
 
+    // for the camera
+    public SmallCameraControl SmallCamera;
+
     private void Awake()
     {
         world = FindObjectOfType<TheWorld>();
@@ -62,6 +65,8 @@ public class CatapultControll : MonoBehaviour
         this.MovementVector = Vector2.zero;
 
         this.CreateNewProjectile = false;   // initially not launching a projectile
+
+        Debug.Assert(this.SmallCamera != null);
     }
     // Start is called before the first frame update
     void Start()
@@ -216,5 +221,10 @@ public class CatapultControll : MonoBehaviour
         // move to next direction
         //this.BaseNode.transform.position = nextPosition;
         this.world.transform.position = nextPosition;
+    }
+
+    public void SetSmallCamera(SmallCameraControl smallCamera)
+    {
+        this.SmallCamera = smallCamera;
     }
 }
